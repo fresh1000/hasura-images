@@ -1,0 +1,76 @@
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: ImageTagsAggExp
+  operand:
+    object:
+      aggregatedType: ImageTags
+      aggregatableFields:
+        - fieldName: imageId
+          aggregateExpression: Int4AggExp
+        - fieldName: tagId
+          aggregateExpression: Int4AggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: ImageTagsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: ImageTagsOrderByExp
+  operand:
+    object:
+      orderedType: ImageTags
+      orderableFields:
+        - fieldName: imageId
+          orderByExpression: Int4OrderByExp
+        - fieldName: tagId
+          orderByExpression: Int4OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: ImageTagsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: ImageTags
+  objectType: ImageTags
+  source:
+    dataConnectorName: my_pg
+    collection: image_tags
+  filterExpressionType: ImageTagsBoolExp
+  aggregateExpression: ImageTagsAggExp
+  orderByExpression: ImageTagsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: imageTags
+      subscription:
+        rootField: imageTags
+    selectUniques:
+      - queryRootField: imageTagsByImageTagsImageIdTagId
+        uniqueIdentifier:
+          - imageId
+          - tagId
+        subscription:
+          rootField: imageTagsByImageTagsImageIdTagId
+    filterInputTypeName: ImageTagsFilterInput
+    aggregate:
+      queryRootField: imageTagsAggregate
+      subscription:
+        rootField: imageTagsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: ImageTags
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

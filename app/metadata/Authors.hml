@@ -1,0 +1,83 @@
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: AuthorsAggExp
+  operand:
+    object:
+      aggregatedType: Authors
+      aggregatableFields:
+        - fieldName: email
+          aggregateExpression: TextAggExp
+        - fieldName: id
+          aggregateExpression: Int4AggExp
+        - fieldName: password
+          aggregateExpression: TextAggExp
+        - fieldName: role
+          aggregateExpression: VarcharAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: AuthorsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: AuthorsOrderByExp
+  operand:
+    object:
+      orderedType: Authors
+      orderableFields:
+        - fieldName: email
+          orderByExpression: TextOrderByExp
+        - fieldName: id
+          orderByExpression: Int4OrderByExp
+        - fieldName: password
+          orderByExpression: TextOrderByExp
+        - fieldName: role
+          orderByExpression: VarcharOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: AuthorsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Authors
+  objectType: Authors
+  source:
+    dataConnectorName: my_pg
+    collection: authors
+  filterExpressionType: AuthorsBoolExp
+  aggregateExpression: AuthorsAggExp
+  orderByExpression: AuthorsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: authors
+      subscription:
+        rootField: authors
+    selectUniques:
+      - queryRootField: authorsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: authorsById
+    filterInputTypeName: AuthorsFilterInput
+    aggregate:
+      queryRootField: authorsAggregate
+      subscription:
+        rootField: authorsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Authors
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

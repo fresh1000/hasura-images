@@ -1,0 +1,95 @@
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: ImagesAggExp
+  operand:
+    object:
+      aggregatedType: Images
+      aggregatableFields:
+        - fieldName: authorId
+          aggregateExpression: Int4AggExp
+        - fieldName: collectionId
+          aggregateExpression: Int4AggExp
+        - fieldName: createdAt
+          aggregateExpression: TimestampAggExp
+        - fieldName: id
+          aggregateExpression: Int4AggExp
+        - fieldName: link
+          aggregateExpression: TextAggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+        - fieldName: status
+          aggregateExpression: VarcharAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: ImagesAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: ImagesOrderByExp
+  operand:
+    object:
+      orderedType: Images
+      orderableFields:
+        - fieldName: authorId
+          orderByExpression: Int4OrderByExp
+        - fieldName: collectionId
+          orderByExpression: Int4OrderByExp
+        - fieldName: createdAt
+          orderByExpression: TimestampOrderByExp
+        - fieldName: id
+          orderByExpression: Int4OrderByExp
+        - fieldName: link
+          orderByExpression: TextOrderByExp
+        - fieldName: name
+          orderByExpression: TextOrderByExp
+        - fieldName: status
+          orderByExpression: VarcharOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: ImagesOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Images
+  objectType: Images
+  source:
+    dataConnectorName: my_pg
+    collection: images
+  filterExpressionType: ImagesBoolExp
+  aggregateExpression: ImagesAggExp
+  orderByExpression: ImagesOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: images
+      subscription:
+        rootField: images
+    selectUniques:
+      - queryRootField: imagesById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: imagesById
+    filterInputTypeName: ImagesFilterInput
+    aggregate:
+      queryRootField: imagesAggregate
+      subscription:
+        rootField: imagesAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Images
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

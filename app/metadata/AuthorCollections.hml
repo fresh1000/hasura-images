@@ -1,0 +1,76 @@
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: AuthorCollectionsAggExp
+  operand:
+    object:
+      aggregatedType: AuthorCollections
+      aggregatableFields:
+        - fieldName: authorId
+          aggregateExpression: Int4AggExp
+        - fieldName: collectionId
+          aggregateExpression: Int4AggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: AuthorCollectionsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: AuthorCollectionsOrderByExp
+  operand:
+    object:
+      orderedType: AuthorCollections
+      orderableFields:
+        - fieldName: authorId
+          orderByExpression: Int4OrderByExp
+        - fieldName: collectionId
+          orderByExpression: Int4OrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: AuthorCollectionsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: AuthorCollections
+  objectType: AuthorCollections
+  source:
+    dataConnectorName: my_pg
+    collection: author_collections
+  filterExpressionType: AuthorCollectionsBoolExp
+  aggregateExpression: AuthorCollectionsAggExp
+  orderByExpression: AuthorCollectionsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: authorCollections
+      subscription:
+        rootField: authorCollections
+    selectUniques:
+      - queryRootField: authorCollectionsByAuthorCollectionsAuthorIdCollectionId
+        uniqueIdentifier:
+          - authorId
+          - collectionId
+        subscription:
+          rootField: authorCollectionsByAuthorCollectionsAuthorIdCollectionId
+    filterInputTypeName: AuthorCollectionsFilterInput
+    aggregate:
+      queryRootField: authorCollectionsAggregate
+      subscription:
+        rootField: authorCollectionsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: AuthorCollections
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

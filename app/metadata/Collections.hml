@@ -1,0 +1,75 @@
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: CollectionsAggExp
+  operand:
+    object:
+      aggregatedType: Collections
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: Int4AggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: CollectionsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: CollectionsOrderByExp
+  operand:
+    object:
+      orderedType: Collections
+      orderableFields:
+        - fieldName: id
+          orderByExpression: Int4OrderByExp
+        - fieldName: name
+          orderByExpression: TextOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: CollectionsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Collections
+  objectType: Collections
+  source:
+    dataConnectorName: my_pg
+    collection: collections
+  filterExpressionType: CollectionsBoolExp
+  aggregateExpression: CollectionsAggExp
+  orderByExpression: CollectionsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: collections
+      subscription:
+        rootField: collections
+    selectUniques:
+      - queryRootField: collectionsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: collectionsById
+    filterInputTypeName: CollectionsFilterInput
+    aggregate:
+      queryRootField: collectionsAggregate
+      subscription:
+        rootField: collectionsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Collections
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+
