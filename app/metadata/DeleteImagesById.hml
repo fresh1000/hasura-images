@@ -1,0 +1,169 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Images
+  fields:
+    - name: authorId
+      type: Int4!
+    - name: collectionId
+      type: Int4!
+    - name: createdAt
+      type: Timestamp!
+    - name: id
+      type: Int4!
+    - name: link
+      type: Text!
+    - name: name
+      type: Text!
+    - name: status
+      type: Varchar!
+  graphql:
+    typeName: Images
+    inputTypeName: ImagesInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: images
+      fieldMapping:
+        authorId:
+          column:
+            name: author_id
+        collectionId:
+          column:
+            name: collection_id
+        createdAt:
+          column:
+            name: created_at
+        id:
+          column:
+            name: id
+        link:
+          column:
+            name: link
+        name:
+          column:
+            name: name
+        status:
+          column:
+            name: status
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Images
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - authorId
+          - collectionId
+          - createdAt
+          - id
+          - link
+          - name
+          - status
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: ImagesBoolExp
+  operand:
+    object:
+      type: Images
+      comparableFields:
+        - fieldName: authorId
+          booleanExpressionType: Int4BoolExp
+        - fieldName: collectionId
+          booleanExpressionType: Int4BoolExp
+        - fieldName: createdAt
+          booleanExpressionType: TimestampBoolExp
+        - fieldName: id
+          booleanExpressionType: Int4BoolExp
+        - fieldName: link
+          booleanExpressionType: TextBoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+        - fieldName: status
+          booleanExpressionType: VarcharBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: ImagesBoolExp
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteImagesByIdResponse
+  description: Responses from the 'delete_images_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Images!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteImagesByIdResponse
+    inputTypeName: DeleteImagesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: delete_images_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteImagesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteImagesById
+  outputType: DeleteImagesByIdResponse!
+  arguments:
+    - name: keyId
+      type: Int4!
+    - name: preCheck
+      type: ImagesBoolExp
+      description: Delete permission predicate over the 'images' collection
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: delete_images_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteImagesById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'images' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteImagesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

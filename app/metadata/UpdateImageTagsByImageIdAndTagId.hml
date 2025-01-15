@@ -1,0 +1,188 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImageTagsImageId
+  description: Update the 'image_id' column in the 'image_tags' collection
+  fields:
+    - name: set
+      type: Int4!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImageTagsImageId
+    inputTypeName: UpdateColumnImageTagsImageIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_image_tags_image_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImageTagsImageId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImageTagsTagId
+  description: Update the 'tag_id' column in the 'image_tags' collection
+  fields:
+    - name: set
+      type: Int4!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImageTagsTagId
+    inputTypeName: UpdateColumnImageTagsTagIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_image_tags_tag_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImageTagsTagId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateImageTagsByImageIdAndTagIdUpdateColumns
+  description: Update the columns of the 'image_tags' collection
+  fields:
+    - name: imageId
+      type: UpdateColumnImageTagsImageId
+      description: Update the 'image_id' column in the 'image_tags' collection.
+    - name: tagId
+      type: UpdateColumnImageTagsTagId
+      description: Update the 'tag_id' column in the 'image_tags' collection.
+  graphql:
+    typeName: UpdateImageTagsByImageIdAndTagIdUpdateColumns
+    inputTypeName: UpdateImageTagsByImageIdAndTagIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_image_tags_by_image_id_and_tag_id_update_columns
+      fieldMapping:
+        imageId:
+          column:
+            name: image_id
+        tagId:
+          column:
+            name: tag_id
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateImageTagsByImageIdAndTagIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - imageId
+          - tagId
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateImageTagsByImageIdAndTagIdResponse
+  description: Responses from the 'update_image_tags_by_image_id_and_tag_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[ImageTags!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateImageTagsByImageIdAndTagIdResponse
+    inputTypeName: UpdateImageTagsByImageIdAndTagIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_image_tags_by_image_id_and_tag_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateImageTagsByImageIdAndTagIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateImageTagsByImageIdAndTagId
+  outputType: UpdateImageTagsByImageIdAndTagIdResponse!
+  arguments:
+    - name: keyImageId
+      type: Int4!
+    - name: keyTagId
+      type: Int4!
+    - name: postCheck
+      type: ImageTagsBoolExp
+      description: Update permission post-condition predicate over the 'image_tags'
+        collection
+    - name: preCheck
+      type: ImageTagsBoolExp
+      description: Update permission pre-condition predicate over the 'image_tags'
+        collection
+    - name: updateColumns
+      type: UpdateImageTagsByImageIdAndTagIdUpdateColumns!
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: update_image_tags_by_image_id_and_tag_id
+    argumentMapping:
+      keyImageId: key_image_id
+      keyTagId: key_tag_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateImageTagsByImageIdAndTagId
+    rootFieldKind: Mutation
+  description: Update any row on the 'image_tags' collection using the 'image_id'
+    and 'tag_id' keys
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateImageTagsByImageIdAndTagId
+  permissions:
+    - role: admin
+      allowExecution: true
+

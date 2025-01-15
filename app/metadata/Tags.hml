@@ -1,0 +1,125 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Tags
+  fields:
+    - name: id
+      type: Int4!
+    - name: name
+      type: Text!
+  graphql:
+    typeName: Tags
+    inputTypeName: TagsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: tags
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Tags
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - name
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: TagsBoolExp
+  operand:
+    object:
+      type: Tags
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: Int4BoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: TagsBoolExp
+
+---
+kind: AggregateExpression
+version: v1
+definition:
+  name: TagsAggExp
+  operand:
+    object:
+      aggregatedType: Tags
+      aggregatableFields:
+        - fieldName: id
+          aggregateExpression: Int4AggExp
+        - fieldName: name
+          aggregateExpression: TextAggExp
+  count:
+    enable: true
+  graphql:
+    selectTypeName: TagsAggExp
+
+---
+kind: OrderByExpression
+version: v1
+definition:
+  name: TagsOrderByExp
+  operand:
+    object:
+      orderedType: Tags
+      orderableFields:
+        - fieldName: id
+          orderByExpression: Int4OrderByExp
+        - fieldName: name
+          orderByExpression: TextOrderByExp
+      orderableRelationships: []
+  graphql:
+    expressionTypeName: TagsOrderByExp
+
+---
+kind: Model
+version: v2
+definition:
+  name: Tags
+  objectType: Tags
+  source:
+    dataConnectorName: my_pg
+    collection: tags
+  filterExpressionType: TagsBoolExp
+  aggregateExpression: TagsAggExp
+  orderByExpression: TagsOrderByExp
+  graphql:
+    selectMany:
+      queryRootField: tags
+      subscription:
+        rootField: tags
+    selectUniques:
+      - queryRootField: tagsById
+        uniqueIdentifier:
+          - id
+        subscription:
+          rootField: tagsById
+    filterInputTypeName: TagsFilterInput
+    aggregate:
+      queryRootField: tagsAggregate
+      subscription:
+        rootField: tagsAggregate
+
+---
+kind: ModelPermissions
+version: v1
+definition:
+  modelName: Tags
+  permissions:
+    - role: admin
+      select:
+        filter: null
+        allowSubscriptions: true
+

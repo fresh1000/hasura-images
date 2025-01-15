@@ -1,0 +1,138 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertImagesObject
+  fields:
+    - name: authorId
+      type: Int4!
+    - name: collectionId
+      type: Int4!
+    - name: createdAt
+      type: Timestamp
+    - name: id
+      type: Int4
+    - name: link
+      type: Text!
+    - name: name
+      type: Text!
+    - name: status
+      type: Varchar!
+  graphql:
+    typeName: InsertImagesObject
+    inputTypeName: InsertImagesObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: insert_images_object
+      fieldMapping:
+        authorId:
+          column:
+            name: author_id
+        collectionId:
+          column:
+            name: collection_id
+        createdAt:
+          column:
+            name: created_at
+        id:
+          column:
+            name: id
+        link:
+          column:
+            name: link
+        name:
+          column:
+            name: name
+        status:
+          column:
+            name: status
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertImagesObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - authorId
+          - collectionId
+          - createdAt
+          - id
+          - link
+          - name
+          - status
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertImagesResponse
+  description: Responses from the 'insert_images' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Images!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertImagesResponse
+    inputTypeName: InsertImagesResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: insert_images_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertImagesResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertImages
+  outputType: InsertImagesResponse!
+  arguments:
+    - name: objects
+      type: "[InsertImagesObject!]!"
+    - name: postCheck
+      type: ImagesBoolExp
+      description: Insert permission predicate over the 'images' collection
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: insert_images
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertImages
+    rootFieldKind: Mutation
+  description: Insert into the images table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertImages
+  permissions:
+    - role: admin
+      allowExecution: true
+

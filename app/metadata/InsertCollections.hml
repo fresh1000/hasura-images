@@ -1,0 +1,101 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCollectionsObject
+  fields:
+    - name: id
+      type: Int4
+    - name: name
+      type: Text!
+  graphql:
+    typeName: InsertCollectionsObject
+    inputTypeName: InsertCollectionsObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: insert_collections_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCollectionsObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - name
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertCollectionsResponse
+  description: Responses from the 'insert_collections' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Collections!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertCollectionsResponse
+    inputTypeName: InsertCollectionsResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: insert_collections_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertCollectionsResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertCollections
+  outputType: InsertCollectionsResponse!
+  arguments:
+    - name: objects
+      type: "[InsertCollectionsObject!]!"
+    - name: postCheck
+      type: CollectionsBoolExp
+      description: Insert permission predicate over the 'collections' collection
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: insert_collections
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertCollections
+    rootFieldKind: Mutation
+  description: Insert into the collections table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertCollections
+  permissions:
+    - role: admin
+      allowExecution: true
+

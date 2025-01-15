@@ -1,0 +1,247 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAuthorsEmail
+  description: Update the 'email' column in the 'authors' collection
+  fields:
+    - name: set
+      type: Text!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAuthorsEmail
+    inputTypeName: UpdateColumnAuthorsEmailInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_authors_email
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAuthorsEmail
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAuthorsId
+  description: Update the 'id' column in the 'authors' collection
+  fields:
+    - name: set
+      type: Int4!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAuthorsId
+    inputTypeName: UpdateColumnAuthorsIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_authors_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAuthorsId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAuthorsPassword
+  description: Update the 'password' column in the 'authors' collection
+  fields:
+    - name: set
+      type: Text!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAuthorsPassword
+    inputTypeName: UpdateColumnAuthorsPasswordInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_authors_password
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAuthorsPassword
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnAuthorsRole
+  description: Update the 'role' column in the 'authors' collection
+  fields:
+    - name: set
+      type: Varchar!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnAuthorsRole
+    inputTypeName: UpdateColumnAuthorsRoleInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_authors_role
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnAuthorsRole
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateAuthorsByIdUpdateColumns
+  description: Update the columns of the 'authors' collection
+  fields:
+    - name: email
+      type: UpdateColumnAuthorsEmail
+      description: Update the 'email' column in the 'authors' collection.
+    - name: id
+      type: UpdateColumnAuthorsId
+      description: Update the 'id' column in the 'authors' collection.
+    - name: password
+      type: UpdateColumnAuthorsPassword
+      description: Update the 'password' column in the 'authors' collection.
+    - name: role
+      type: UpdateColumnAuthorsRole
+      description: Update the 'role' column in the 'authors' collection.
+  graphql:
+    typeName: UpdateAuthorsByIdUpdateColumns
+    inputTypeName: UpdateAuthorsByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_authors_by_id_update_columns
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateAuthorsByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - email
+          - id
+          - password
+          - role
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateAuthorsByIdResponse
+  description: Responses from the 'update_authors_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Authors!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateAuthorsByIdResponse
+    inputTypeName: UpdateAuthorsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_authors_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateAuthorsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateAuthorsById
+  outputType: UpdateAuthorsByIdResponse!
+  arguments:
+    - name: keyId
+      type: Int4!
+    - name: postCheck
+      type: AuthorsBoolExp
+      description: Update permission post-condition predicate over the 'authors' collection
+    - name: preCheck
+      type: AuthorsBoolExp
+      description: Update permission pre-condition predicate over the 'authors' collection
+    - name: updateColumns
+      type: UpdateAuthorsByIdUpdateColumns!
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: update_authors_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateAuthorsById
+    rootFieldKind: Mutation
+  description: Update any row on the 'authors' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateAuthorsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

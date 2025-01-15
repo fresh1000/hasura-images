@@ -1,0 +1,101 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertTagsObject
+  fields:
+    - name: id
+      type: Int4
+    - name: name
+      type: Text!
+  graphql:
+    typeName: InsertTagsObject
+    inputTypeName: InsertTagsObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: insert_tags_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertTagsObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - name
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertTagsResponse
+  description: Responses from the 'insert_tags' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Tags!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertTagsResponse
+    inputTypeName: InsertTagsResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: insert_tags_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertTagsResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertTags
+  outputType: InsertTagsResponse!
+  arguments:
+    - name: objects
+      type: "[InsertTagsObject!]!"
+    - name: postCheck
+      type: TagsBoolExp
+      description: Insert permission predicate over the 'tags' collection
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: insert_tags
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertTags
+    rootFieldKind: Mutation
+  description: Insert into the tags table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertTags
+  permissions:
+    - role: admin
+      allowExecution: true
+

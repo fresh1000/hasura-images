@@ -1,0 +1,377 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImagesAuthorId
+  description: Update the 'author_id' column in the 'images' collection
+  fields:
+    - name: set
+      type: Int4!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImagesAuthorId
+    inputTypeName: UpdateColumnImagesAuthorIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_images_author_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImagesAuthorId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImagesCollectionId
+  description: Update the 'collection_id' column in the 'images' collection
+  fields:
+    - name: set
+      type: Int4!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImagesCollectionId
+    inputTypeName: UpdateColumnImagesCollectionIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_images_collection_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImagesCollectionId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImagesCreatedAt
+  description: Update the 'created_at' column in the 'images' collection
+  fields:
+    - name: set
+      type: Timestamp!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImagesCreatedAt
+    inputTypeName: UpdateColumnImagesCreatedAtInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_images_created_at
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImagesCreatedAt
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImagesId
+  description: Update the 'id' column in the 'images' collection
+  fields:
+    - name: set
+      type: Int4!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImagesId
+    inputTypeName: UpdateColumnImagesIdInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_images_id
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImagesId
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImagesLink
+  description: Update the 'link' column in the 'images' collection
+  fields:
+    - name: set
+      type: Text!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImagesLink
+    inputTypeName: UpdateColumnImagesLinkInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_images_link
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImagesLink
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImagesName
+  description: Update the 'name' column in the 'images' collection
+  fields:
+    - name: set
+      type: Text!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImagesName
+    inputTypeName: UpdateColumnImagesNameInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_images_name
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImagesName
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateColumnImagesStatus
+  description: Update the 'status' column in the 'images' collection
+  fields:
+    - name: set
+      type: Varchar!
+      description: Set the column to this value
+  graphql:
+    typeName: UpdateColumnImagesStatus
+    inputTypeName: UpdateColumnImagesStatusInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_column_images_status
+      fieldMapping:
+        set:
+          column:
+            name: _set
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateColumnImagesStatus
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - set
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateImagesByIdUpdateColumns
+  description: Update the columns of the 'images' collection
+  fields:
+    - name: authorId
+      type: UpdateColumnImagesAuthorId
+      description: Update the 'author_id' column in the 'images' collection.
+    - name: collectionId
+      type: UpdateColumnImagesCollectionId
+      description: Update the 'collection_id' column in the 'images' collection.
+    - name: createdAt
+      type: UpdateColumnImagesCreatedAt
+      description: Update the 'created_at' column in the 'images' collection.
+    - name: id
+      type: UpdateColumnImagesId
+      description: Update the 'id' column in the 'images' collection.
+    - name: link
+      type: UpdateColumnImagesLink
+      description: Update the 'link' column in the 'images' collection.
+    - name: name
+      type: UpdateColumnImagesName
+      description: Update the 'name' column in the 'images' collection.
+    - name: status
+      type: UpdateColumnImagesStatus
+      description: Update the 'status' column in the 'images' collection.
+  graphql:
+    typeName: UpdateImagesByIdUpdateColumns
+    inputTypeName: UpdateImagesByIdUpdateColumnsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_images_by_id_update_columns
+      fieldMapping:
+        authorId:
+          column:
+            name: author_id
+        collectionId:
+          column:
+            name: collection_id
+        createdAt:
+          column:
+            name: created_at
+        id:
+          column:
+            name: id
+        link:
+          column:
+            name: link
+        name:
+          column:
+            name: name
+        status:
+          column:
+            name: status
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateImagesByIdUpdateColumns
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - authorId
+          - collectionId
+          - createdAt
+          - id
+          - link
+          - name
+          - status
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: UpdateImagesByIdResponse
+  description: Responses from the 'update_images_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Images!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: UpdateImagesByIdResponse
+    inputTypeName: UpdateImagesByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: update_images_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: UpdateImagesByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: UpdateImagesById
+  outputType: UpdateImagesByIdResponse!
+  arguments:
+    - name: keyId
+      type: Int4!
+    - name: postCheck
+      type: ImagesBoolExp
+      description: Update permission post-condition predicate over the 'images' collection
+    - name: preCheck
+      type: ImagesBoolExp
+      description: Update permission pre-condition predicate over the 'images' collection
+    - name: updateColumns
+      type: UpdateImagesByIdUpdateColumns!
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: update_images_by_id
+    argumentMapping:
+      keyId: key_id
+      postCheck: post_check
+      preCheck: pre_check
+      updateColumns: update_columns
+  graphql:
+    rootFieldName: updateImagesById
+    rootFieldKind: Mutation
+  description: Update any row on the 'images' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: UpdateImagesById
+  permissions:
+    - role: admin
+      allowExecution: true
+

@@ -1,0 +1,132 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Authors
+  fields:
+    - name: email
+      type: Text!
+    - name: id
+      type: Int4!
+    - name: password
+      type: Text!
+    - name: role
+      type: Varchar!
+  graphql:
+    typeName: Authors
+    inputTypeName: AuthorsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: authors
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Authors
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - email
+          - id
+          - password
+          - role
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: AuthorsBoolExp
+  operand:
+    object:
+      type: Authors
+      comparableFields:
+        - fieldName: email
+          booleanExpressionType: TextBoolExp
+        - fieldName: id
+          booleanExpressionType: Int4BoolExp
+        - fieldName: password
+          booleanExpressionType: TextBoolExp
+        - fieldName: role
+          booleanExpressionType: VarcharBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: AuthorsBoolExp
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteAuthorsByIdResponse
+  description: Responses from the 'delete_authors_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Authors!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteAuthorsByIdResponse
+    inputTypeName: DeleteAuthorsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: delete_authors_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteAuthorsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteAuthorsById
+  outputType: DeleteAuthorsByIdResponse!
+  arguments:
+    - name: keyId
+      type: Int4!
+    - name: preCheck
+      type: AuthorsBoolExp
+      description: Delete permission predicate over the 'authors' collection
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: delete_authors_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteAuthorsById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'authors' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteAuthorsById
+  permissions:
+    - role: admin
+      allowExecution: true
+

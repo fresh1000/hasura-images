@@ -1,0 +1,1820 @@
+kind: DataConnectorLink
+version: v1
+definition:
+  name: my_pg
+  url:
+    readWriteUrls:
+      read:
+        valueFromEnv: APP_MY_PG_READ_URL
+      write:
+        valueFromEnv: APP_MY_PG_WRITE_URL
+  headers:
+    Authorization:
+      valueFromEnv: APP_MY_PG_AUTHORIZATION_HEADER
+  schema:
+    version: v0.1
+    schema:
+      scalar_types:
+        int4:
+          representation:
+            type: int32
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            bit_and:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            bit_or:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            bit_xor:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: int4
+        int8:
+          representation:
+            type: int64
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            bit_and:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            bit_or:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            bit_xor:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int8
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: int8
+        numeric:
+          representation:
+            type: bigdecimal
+          aggregate_functions:
+            avg:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            stddev_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            sum:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_pop:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            var_samp:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+            variance:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: numeric
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: numeric
+        text:
+          representation:
+            type: string
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _ilike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _in:
+              type: in
+            _iregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _like:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nilike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _niregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nlike:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _nregex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            _regex:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            starts_with:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+            ts_match_tt:
+              type: custom
+              argument_type:
+                type: named
+                name: text
+        timestamp:
+          representation:
+            type: timestamp
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+            _in:
+              type: in
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: timestamp
+        varchar:
+          representation:
+            type: string
+          aggregate_functions:
+            max:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+            min:
+              result_type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: text
+          comparison_operators:
+            _eq:
+              type: equal
+            _gt:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _gte:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _ilike:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _in:
+              type: in
+            _iregex:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _like:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _lt:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _lte:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _neq:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _nilike:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _niregex:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _nlike:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _nregex:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            _regex:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            starts_with:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+            ts_match_tt:
+              type: custom
+              argument_type:
+                type: named
+                name: varchar
+      object_types:
+        author_collections:
+          fields:
+            author_id:
+              type:
+                type: named
+                name: int4
+            collection_id:
+              type:
+                type: named
+                name: int4
+        authors:
+          fields:
+            email:
+              type:
+                type: named
+                name: text
+            id:
+              type:
+                type: named
+                name: int4
+            password:
+              type:
+                type: named
+                name: text
+            role:
+              type:
+                type: named
+                name: varchar
+        collections:
+          fields:
+            id:
+              type:
+                type: named
+                name: int4
+            name:
+              type:
+                type: named
+                name: text
+        delete_author_collections_by_author_id_and_collection_id_response:
+          description: Responses from the 'delete_author_collections_by_author_id_and_collection_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: author_collections
+        delete_authors_by_id_response:
+          description: Responses from the 'delete_authors_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: authors
+        delete_collections_by_id_response:
+          description: Responses from the 'delete_collections_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: collections
+        delete_image_tags_by_image_id_and_tag_id_response:
+          description: Responses from the 'delete_image_tags_by_image_id_and_tag_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: image_tags
+        delete_images_by_id_response:
+          description: Responses from the 'delete_images_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: images
+        delete_tags_by_id_response:
+          description: Responses from the 'delete_tags_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: tags
+        image_tags:
+          fields:
+            image_id:
+              type:
+                type: named
+                name: int4
+            tag_id:
+              type:
+                type: named
+                name: int4
+        images:
+          fields:
+            author_id:
+              type:
+                type: named
+                name: int4
+            collection_id:
+              type:
+                type: named
+                name: int4
+            created_at:
+              type:
+                type: named
+                name: timestamp
+            id:
+              type:
+                type: named
+                name: int4
+            link:
+              type:
+                type: named
+                name: text
+            name:
+              type:
+                type: named
+                name: text
+            status:
+              type:
+                type: named
+                name: varchar
+        insert_author_collections_object:
+          fields:
+            author_id:
+              type:
+                type: named
+                name: int4
+            collection_id:
+              type:
+                type: named
+                name: int4
+        insert_author_collections_response:
+          description: Responses from the 'insert_author_collections' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: author_collections
+        insert_authors_object:
+          fields:
+            email:
+              type:
+                type: named
+                name: text
+            id:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            password:
+              type:
+                type: named
+                name: text
+            role:
+              type:
+                type: named
+                name: varchar
+        insert_authors_response:
+          description: Responses from the 'insert_authors' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: authors
+        insert_collections_object:
+          fields:
+            id:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            name:
+              type:
+                type: named
+                name: text
+        insert_collections_response:
+          description: Responses from the 'insert_collections' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: collections
+        insert_image_tags_object:
+          fields:
+            image_id:
+              type:
+                type: named
+                name: int4
+            tag_id:
+              type:
+                type: named
+                name: int4
+        insert_image_tags_response:
+          description: Responses from the 'insert_image_tags' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: image_tags
+        insert_images_object:
+          fields:
+            author_id:
+              type:
+                type: named
+                name: int4
+            collection_id:
+              type:
+                type: named
+                name: int4
+            created_at:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: timestamp
+            id:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            link:
+              type:
+                type: named
+                name: text
+            name:
+              type:
+                type: named
+                name: text
+            status:
+              type:
+                type: named
+                name: varchar
+        insert_images_response:
+          description: Responses from the 'insert_images' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: images
+        insert_tags_object:
+          fields:
+            id:
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: int4
+            name:
+              type:
+                type: named
+                name: text
+        insert_tags_response:
+          description: Responses from the 'insert_tags' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: tags
+        tags:
+          fields:
+            id:
+              type:
+                type: named
+                name: int4
+            name:
+              type:
+                type: named
+                name: text
+        update_author_collections_by_author_id_and_collection_id_response:
+          description: Responses from the 'update_author_collections_by_author_id_and_collection_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: author_collections
+        update_author_collections_by_author_id_and_collection_id_update_columns:
+          description: Update the columns of the 'author_collections' collection
+          fields:
+            author_id:
+              description: Update the 'author_id' column in the 'author_collections' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_author_collections_author_id
+            collection_id:
+              description: Update the 'collection_id' column in the 'author_collections' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_author_collections_collection_id
+        update_authors_by_id_response:
+          description: Responses from the 'update_authors_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: authors
+        update_authors_by_id_update_columns:
+          description: Update the columns of the 'authors' collection
+          fields:
+            email:
+              description: Update the 'email' column in the 'authors' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_authors_email
+            id:
+              description: Update the 'id' column in the 'authors' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_authors_id
+            password:
+              description: Update the 'password' column in the 'authors' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_authors_password
+            role:
+              description: Update the 'role' column in the 'authors' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_authors_role
+        update_collections_by_id_response:
+          description: Responses from the 'update_collections_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: collections
+        update_collections_by_id_update_columns:
+          description: Update the columns of the 'collections' collection
+          fields:
+            id:
+              description: Update the 'id' column in the 'collections' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_collections_id
+            name:
+              description: Update the 'name' column in the 'collections' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_collections_name
+        update_column_author_collections_author_id:
+          description: Update the 'author_id' column in the 'author_collections' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_author_collections_collection_id:
+          description: Update the 'collection_id' column in the 'author_collections' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_authors_email:
+          description: Update the 'email' column in the 'authors' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_column_authors_id:
+          description: Update the 'id' column in the 'authors' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_authors_password:
+          description: Update the 'password' column in the 'authors' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_column_authors_role:
+          description: Update the 'role' column in the 'authors' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: varchar
+        update_column_collections_id:
+          description: Update the 'id' column in the 'collections' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_collections_name:
+          description: Update the 'name' column in the 'collections' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_column_image_tags_image_id:
+          description: Update the 'image_id' column in the 'image_tags' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_image_tags_tag_id:
+          description: Update the 'tag_id' column in the 'image_tags' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_images_author_id:
+          description: Update the 'author_id' column in the 'images' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_images_collection_id:
+          description: Update the 'collection_id' column in the 'images' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_images_created_at:
+          description: Update the 'created_at' column in the 'images' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: timestamp
+        update_column_images_id:
+          description: Update the 'id' column in the 'images' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_images_link:
+          description: Update the 'link' column in the 'images' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_column_images_name:
+          description: Update the 'name' column in the 'images' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_column_images_status:
+          description: Update the 'status' column in the 'images' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: varchar
+        update_column_tags_id:
+          description: Update the 'id' column in the 'tags' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: int4
+        update_column_tags_name:
+          description: Update the 'name' column in the 'tags' collection
+          fields:
+            _set:
+              description: Set the column to this value
+              type:
+                type: named
+                name: text
+        update_image_tags_by_image_id_and_tag_id_response:
+          description: Responses from the 'update_image_tags_by_image_id_and_tag_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: image_tags
+        update_image_tags_by_image_id_and_tag_id_update_columns:
+          description: Update the columns of the 'image_tags' collection
+          fields:
+            image_id:
+              description: Update the 'image_id' column in the 'image_tags' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_image_tags_image_id
+            tag_id:
+              description: Update the 'tag_id' column in the 'image_tags' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_image_tags_tag_id
+        update_images_by_id_response:
+          description: Responses from the 'update_images_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: images
+        update_images_by_id_update_columns:
+          description: Update the columns of the 'images' collection
+          fields:
+            author_id:
+              description: Update the 'author_id' column in the 'images' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_images_author_id
+            collection_id:
+              description: Update the 'collection_id' column in the 'images' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_images_collection_id
+            created_at:
+              description: Update the 'created_at' column in the 'images' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_images_created_at
+            id:
+              description: Update the 'id' column in the 'images' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_images_id
+            link:
+              description: Update the 'link' column in the 'images' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_images_link
+            name:
+              description: Update the 'name' column in the 'images' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_images_name
+            status:
+              description: Update the 'status' column in the 'images' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_images_status
+        update_tags_by_id_response:
+          description: Responses from the 'update_tags_by_id' procedure
+          fields:
+            affected_rows:
+              description: The number of rows affected by the mutation
+              type:
+                type: named
+                name: int4
+            returning:
+              description: Data from rows affected by the mutation
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: tags
+        update_tags_by_id_update_columns:
+          description: Update the columns of the 'tags' collection
+          fields:
+            id:
+              description: Update the 'id' column in the 'tags' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_tags_id
+            name:
+              description: Update the 'name' column in the 'tags' collection.
+              type:
+                type: nullable
+                underlying_type:
+                  type: named
+                  name: update_column_tags_name
+      collections:
+        - name: author_collections
+          arguments: {}
+          type: author_collections
+          uniqueness_constraints:
+            author_collections_author_id_collection_id:
+              unique_columns:
+                - author_id
+                - collection_id
+          foreign_keys:
+            author_collections_author_id_fkey:
+              column_mapping:
+                author_id: id
+              foreign_collection: authors
+            author_collections_collection_id_fkey:
+              column_mapping:
+                collection_id: id
+              foreign_collection: collections
+        - name: authors
+          arguments: {}
+          type: authors
+          uniqueness_constraints:
+            authors_pkey:
+              unique_columns:
+                - id
+          foreign_keys: {}
+        - name: collections
+          arguments: {}
+          type: collections
+          uniqueness_constraints:
+            collections_pkey:
+              unique_columns:
+                - id
+          foreign_keys: {}
+        - name: image_tags
+          arguments: {}
+          type: image_tags
+          uniqueness_constraints:
+            image_tags_image_id_tag_id:
+              unique_columns:
+                - image_id
+                - tag_id
+          foreign_keys:
+            image_tags_image_id_fkey:
+              column_mapping:
+                image_id: id
+              foreign_collection: images
+            image_tags_tag_id_fkey:
+              column_mapping:
+                tag_id: id
+              foreign_collection: tags
+        - name: images
+          arguments: {}
+          type: images
+          uniqueness_constraints:
+            images_pkey:
+              unique_columns:
+                - id
+          foreign_keys: {}
+        - name: tags
+          arguments: {}
+          type: tags
+          uniqueness_constraints:
+            tags_pkey:
+              unique_columns:
+                - id
+          foreign_keys: {}
+      functions: []
+      procedures:
+        - name: delete_author_collections_by_author_id_and_collection_id
+          description: Delete any row on the 'author_collections' collection using the 'author_id' and 'collection_id' keys
+          arguments:
+            key_author_id:
+              type:
+                type: named
+                name: int4
+            key_collection_id:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'author_collections' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: author_collections
+          result_type:
+            type: named
+            name: delete_author_collections_by_author_id_and_collection_id_response
+        - name: delete_authors_by_id
+          description: Delete any row on the 'authors' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'authors' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: authors
+          result_type:
+            type: named
+            name: delete_authors_by_id_response
+        - name: delete_collections_by_id
+          description: Delete any row on the 'collections' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'collections' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: collections
+          result_type:
+            type: named
+            name: delete_collections_by_id_response
+        - name: delete_image_tags_by_image_id_and_tag_id
+          description: Delete any row on the 'image_tags' collection using the 'image_id' and 'tag_id' keys
+          arguments:
+            key_image_id:
+              type:
+                type: named
+                name: int4
+            key_tag_id:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'image_tags' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: image_tags
+          result_type:
+            type: named
+            name: delete_image_tags_by_image_id_and_tag_id_response
+        - name: delete_images_by_id
+          description: Delete any row on the 'images' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'images' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: images
+          result_type:
+            type: named
+            name: delete_images_by_id_response
+        - name: delete_tags_by_id
+          description: Delete any row on the 'tags' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            pre_check:
+              description: Delete permission predicate over the 'tags' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: tags
+          result_type:
+            type: named
+            name: delete_tags_by_id_response
+        - name: insert_author_collections
+          description: Insert into the author_collections table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_author_collections_object
+            post_check:
+              description: Insert permission predicate over the 'author_collections' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: author_collections
+          result_type:
+            type: named
+            name: insert_author_collections_response
+        - name: insert_authors
+          description: Insert into the authors table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_authors_object
+            post_check:
+              description: Insert permission predicate over the 'authors' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: authors
+          result_type:
+            type: named
+            name: insert_authors_response
+        - name: insert_collections
+          description: Insert into the collections table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_collections_object
+            post_check:
+              description: Insert permission predicate over the 'collections' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: collections
+          result_type:
+            type: named
+            name: insert_collections_response
+        - name: insert_image_tags
+          description: Insert into the image_tags table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_image_tags_object
+            post_check:
+              description: Insert permission predicate over the 'image_tags' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: image_tags
+          result_type:
+            type: named
+            name: insert_image_tags_response
+        - name: insert_images
+          description: Insert into the images table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_images_object
+            post_check:
+              description: Insert permission predicate over the 'images' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: images
+          result_type:
+            type: named
+            name: insert_images_response
+        - name: insert_tags
+          description: Insert into the tags table
+          arguments:
+            objects:
+              type:
+                type: array
+                element_type:
+                  type: named
+                  name: insert_tags_object
+            post_check:
+              description: Insert permission predicate over the 'tags' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: tags
+          result_type:
+            type: named
+            name: insert_tags_response
+        - name: update_author_collections_by_author_id_and_collection_id
+          description: Update any row on the 'author_collections' collection using the 'author_id' and 'collection_id' keys
+          arguments:
+            key_author_id:
+              type:
+                type: named
+                name: int4
+            key_collection_id:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'author_collections' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: author_collections
+            pre_check:
+              description: Update permission pre-condition predicate over the 'author_collections' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: author_collections
+            update_columns:
+              type:
+                type: named
+                name: update_author_collections_by_author_id_and_collection_id_update_columns
+          result_type:
+            type: named
+            name: update_author_collections_by_author_id_and_collection_id_response
+        - name: update_authors_by_id
+          description: Update any row on the 'authors' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'authors' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: authors
+            pre_check:
+              description: Update permission pre-condition predicate over the 'authors' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: authors
+            update_columns:
+              type:
+                type: named
+                name: update_authors_by_id_update_columns
+          result_type:
+            type: named
+            name: update_authors_by_id_response
+        - name: update_collections_by_id
+          description: Update any row on the 'collections' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'collections' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: collections
+            pre_check:
+              description: Update permission pre-condition predicate over the 'collections' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: collections
+            update_columns:
+              type:
+                type: named
+                name: update_collections_by_id_update_columns
+          result_type:
+            type: named
+            name: update_collections_by_id_response
+        - name: update_image_tags_by_image_id_and_tag_id
+          description: Update any row on the 'image_tags' collection using the 'image_id' and 'tag_id' keys
+          arguments:
+            key_image_id:
+              type:
+                type: named
+                name: int4
+            key_tag_id:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'image_tags' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: image_tags
+            pre_check:
+              description: Update permission pre-condition predicate over the 'image_tags' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: image_tags
+            update_columns:
+              type:
+                type: named
+                name: update_image_tags_by_image_id_and_tag_id_update_columns
+          result_type:
+            type: named
+            name: update_image_tags_by_image_id_and_tag_id_response
+        - name: update_images_by_id
+          description: Update any row on the 'images' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'images' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: images
+            pre_check:
+              description: Update permission pre-condition predicate over the 'images' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: images
+            update_columns:
+              type:
+                type: named
+                name: update_images_by_id_update_columns
+          result_type:
+            type: named
+            name: update_images_by_id_response
+        - name: update_tags_by_id
+          description: Update any row on the 'tags' collection using the 'id' key
+          arguments:
+            key_id:
+              type:
+                type: named
+                name: int4
+            post_check:
+              description: Update permission post-condition predicate over the 'tags' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: tags
+            pre_check:
+              description: Update permission pre-condition predicate over the 'tags' collection
+              type:
+                type: nullable
+                underlying_type:
+                  type: predicate
+                  object_type_name: tags
+            update_columns:
+              type:
+                type: named
+                name: update_tags_by_id_update_columns
+          result_type:
+            type: named
+            name: update_tags_by_id_response
+    capabilities:
+      version: 0.1.6
+      capabilities:
+        query:
+          aggregates: {}
+          variables: {}
+          explain: {}
+          nested_fields:
+            filter_by: {}
+            order_by: {}
+          exists:
+            nested_collections: {}
+        mutation:
+          transactional: {}
+          explain: {}
+        relationships:
+          relation_comparisons: {}
+          order_by_aggregate: {}

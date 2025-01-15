@@ -1,0 +1,107 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertAuthorsObject
+  fields:
+    - name: email
+      type: Text!
+    - name: id
+      type: Int4
+    - name: password
+      type: Text!
+    - name: role
+      type: Varchar!
+  graphql:
+    typeName: InsertAuthorsObject
+    inputTypeName: InsertAuthorsObjectInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: insert_authors_object
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertAuthorsObject
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - email
+          - id
+          - password
+          - role
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: InsertAuthorsResponse
+  description: Responses from the 'insert_authors' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Authors!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: InsertAuthorsResponse
+    inputTypeName: InsertAuthorsResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: insert_authors_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: InsertAuthorsResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: InsertAuthors
+  outputType: InsertAuthorsResponse!
+  arguments:
+    - name: objects
+      type: "[InsertAuthorsObject!]!"
+    - name: postCheck
+      type: AuthorsBoolExp
+      description: Insert permission predicate over the 'authors' collection
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: insert_authors
+    argumentMapping:
+      objects: objects
+      postCheck: post_check
+  graphql:
+    rootFieldName: insertAuthors
+    rootFieldKind: Mutation
+  description: Insert into the authors table
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: InsertAuthors
+  permissions:
+    - role: admin
+      allowExecution: true
+

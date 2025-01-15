@@ -1,0 +1,122 @@
+---
+kind: ObjectType
+version: v1
+definition:
+  name: Collections
+  fields:
+    - name: id
+      type: Int4!
+    - name: name
+      type: Text!
+  graphql:
+    typeName: Collections
+    inputTypeName: CollectionsInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: collections
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: Collections
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - id
+          - name
+
+---
+kind: BooleanExpressionType
+version: v1
+definition:
+  name: CollectionsBoolExp
+  operand:
+    object:
+      type: Collections
+      comparableFields:
+        - fieldName: id
+          booleanExpressionType: Int4BoolExp
+        - fieldName: name
+          booleanExpressionType: TextBoolExp
+      comparableRelationships: []
+  logicalOperators:
+    enable: true
+  isNull:
+    enable: true
+  graphql:
+    typeName: CollectionsBoolExp
+
+---
+kind: ObjectType
+version: v1
+definition:
+  name: DeleteCollectionsByIdResponse
+  description: Responses from the 'delete_collections_by_id' procedure
+  fields:
+    - name: affectedRows
+      type: Int4!
+      description: The number of rows affected by the mutation
+    - name: returning
+      type: "[Collections!]!"
+      description: Data from rows affected by the mutation
+  graphql:
+    typeName: DeleteCollectionsByIdResponse
+    inputTypeName: DeleteCollectionsByIdResponseInput
+  dataConnectorTypeMapping:
+    - dataConnectorName: my_pg
+      dataConnectorObjectType: delete_collections_by_id_response
+      fieldMapping:
+        affectedRows:
+          column:
+            name: affected_rows
+        returning:
+          column:
+            name: returning
+
+---
+kind: TypePermissions
+version: v1
+definition:
+  typeName: DeleteCollectionsByIdResponse
+  permissions:
+    - role: admin
+      output:
+        allowedFields:
+          - affectedRows
+          - returning
+
+---
+kind: Command
+version: v1
+definition:
+  name: DeleteCollectionsById
+  outputType: DeleteCollectionsByIdResponse!
+  arguments:
+    - name: keyId
+      type: Int4!
+    - name: preCheck
+      type: CollectionsBoolExp
+      description: Delete permission predicate over the 'collections' collection
+  source:
+    dataConnectorName: my_pg
+    dataConnectorCommand:
+      procedure: delete_collections_by_id
+    argumentMapping:
+      keyId: key_id
+      preCheck: pre_check
+  graphql:
+    rootFieldName: deleteCollectionsById
+    rootFieldKind: Mutation
+  description: Delete any row on the 'collections' collection using the 'id' key
+
+---
+kind: CommandPermissions
+version: v1
+definition:
+  commandName: DeleteCollectionsById
+  permissions:
+    - role: admin
+      allowExecution: true
+
